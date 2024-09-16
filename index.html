@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стоматологія Shine & Smile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Стилі для модального вікна */
+.modal {
+    display: none; /* Приховане за замовчуванням */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Чорний з прозорістю */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    overflow: hidden; /* Додано для запобігання виступанню вмісту */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.appointment-form input, .appointment-form textarea {
+    width: calc(100% - 22px); /* Зменшено ширину на 22px для обліку padding */
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Додано для правильного обліку padding */
+}
+
+.appointment-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.appointment-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Стилі для діалогового вікна */
+.dialog-modal {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.dialog-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.dialog-content button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dialog-content button:hover {
+    background-color: #0056b3;
+}
+
+.why-us-section {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.why-us-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.why-us-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.why-us-item {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: calc(50% - 40px);
+    max-width: 300px;
+    text-align: left;
+}
+
+.why-us-item h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.why-us-item p {
+    font-size: 1em;
+    color: #666;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Shine & Smile">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Головна</a></li>
+                <li><a href="about.html">Про нас</a></li>
+                <li><a href="#services">Послуги</a></li>
+                <li><a href="prices.html">Ціни</a></li>
+                <li><a href="#reviews">Відгуки</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+                <li><a href="#" class="appointment-btn">Записатися на прийом</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <h1>Ласкаво просимо до Shine & Smile</h1>
+            <p>Професійна стоматологія для вашої усмішки</p>
+            <a href="#" class="hero-btn appointment-btn">Записатися на прийом</a>
+        </div>
+    </section>
+
+    <!-- Модальне вікно -->
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Записатися на прийом</h2>
+            <form class="appointment-form">
+                <label for="name">Ім'я:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="phone">Телефон:</label>
+                <input type="tel" id="phone" name="phone" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="date">Дата:</label>
+                <input type="date" id="date" name="date" required>
+                
+                <label for="message">Повідомлення:</label>
+                <textarea id="message" name="message" rows="4"></textarea>
+                
+                <button type="submit">Відправити</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Діалогове вікно -->
+    <div id="dialogModal" class="dialog-modal">
+        <div class="dialog-content">
+            <p>Ваш запит прийнято</p>
+            <button id="dialogOkButton">OK</button>
+        </div>
+    </div>
+
+    <section id="carousel" class="carousel-section">
+        <div class="carousel-container">
+            <button class="carousel-prev">←</button>
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-item"><img src="clinic1.jpg" alt="Клініка 1"></div>
+                    <div class="carousel-item"><img src="clinic2.jpg" alt="Клініка 2"></div>
+                    <div class="carousel-item"><img src="clinic3.jpg" alt="Клініка 3"></div>
+                    <div class="carousel-item"><img src="clinic4.jpg" alt="Клініка 4"></div>
+                </div>
+            </div>
+            <button class="carousel-next">→</button>
+        </div>
+    </section>    
+
+    <section id="why-us" class="why-us-section">
+        <h2>Чому обирають нас?</h2>
+        <div class="why-us-container">
+            <div class="why-us-item">
+                <h3>Професійний персонал</h3>
+                <p>Наші лікарі мають багаторічний досвід та високу кваліфікацію.</p>
+            </div>
+            <div class="why-us-item">
+                <h3>Сучасне обладнання</h3>
+                <p>Ми використовуємо тільки передові технології та обладнання.</p>
+            </div>
+            <div class="why-us-item">
+                <h3>Індивідуальний підхід</h3>
+                <p>Кожен пацієнт отримує персоналізоване обслуговування та увагу.</p>
+            </div>
+            <div class="why-us-item">
+                <h3>Доступні ціни</h3>
+                <p>Ми пропонуємо конкурентні ціни та гнучку систему знижок.</p>
+            </div>
+        </div>
+    </section>    
+
+    <section id="services" class="services-section">
+        <h2>Наші Послуги</h2>
+        <div class="services-container">
+            <div class="service-item">
+                <h3>Професійна гігієна зубів</h3>
+                <p>Профілактичні заходи, спрямовані на запобігання захворювань порожнини рота</p>
+                <a href="#" class="details-btn">Детальніше</a>
+            </div>
+            <div class="service-item">
+                <h3>Терапевтична стоматологія</h3>
+                <p>Лікування карієсу та його ускладнень, пульпіту, періодонтиту</p>
+                <a href="#" class="details-btn">Детальніше</a>
+            </div>
+            <div class="service-item">
+                <h3>Пародонтологія</h3>
+                <p>Лікування ясен на різних стадіях із застосуванням спеціальної апаратури</p>
+                <a href="#" class="details-btn">Детальніше</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="reviews-section">
+        <h2>Відгуки наших пацієнтів</h2>
+        <div class="reviews-container">
+            <div class="review-item">
+                <p>"Відмінний сервіс та дуже привітний персонал. Рекомендую Shine & Smile всім!"</p>
+                <h4>- Олена П.</h4>
+            </div>
+            <div class="review-item">
+                <p>"Дуже задоволений лікуванням. Лікарі - професіонали своєї справи."</p>
+                <h4>- Андрій К.</h4>
+            </div>
+            <div class="review-item">
+                <p>"Чудова клініка з сучасним обладнанням. Відчуваєш себе в надійних руках."</p>
+                <h4>- Марія Л.</h4>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Shine & Smile. Всі права захищені.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
